@@ -32,7 +32,7 @@ import {Router, Request, Response} from 'express';
   app.get("/filteredimage/",async (req: Request,res: Response)=>{
     let {image_url}: any = req.query;
     if( !image_url ) {
-      return res.status(400).send(`Imga url is required!`);
+      return res.status(422).send(`Image url is required!`);
     }
     else{
       filterImageFromURL(image_url)
@@ -40,7 +40,7 @@ import {Router, Request, Response} from 'express';
       res.sendFile(result);
       res.on(`finish`,()=>deleteLocalFiles([result]));
       })
-      .catch((err)=>res.status(400).send(err))
+      .catch((err)=>res.status(500).send(err))
     }
   });
   //! END @TODO1
